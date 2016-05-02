@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: b7e8bbd24adc9f24397a3b86ea55d9ca
+timeCreated: 1462177224
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: OiseauFrames_0
+    21300002: OiseauFrames_1
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: OiseauFrames_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 105
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -29.5, y: 45}
+        - {x: -32.5, y: 44}
+        - {x: -46.5, y: 12}
+        - {x: -46.5, y: -23}
+        - {x: -23.5, y: -52}
+        - {x: 31.5, y: -52}
+        - {x: 52.5, y: -17}
+        - {x: 52.5, y: 25}
+        - {x: 31.5, y: 45}
+      - - {x: 42.5, y: -28}
+        - {x: 45.5, y: -27}
+        - {x: 45.5, y: -24}
+        - {x: 42.5, y: -23}
+        - {x: 40.5, y: -25}
+      - - {x: -52.5, y: -6}
+        - {x: -52.5, y: -12}
+        - {x: -50.5, y: -12}
+        - {x: -48.5, y: -10}
+        - {x: -48.5, y: -8}
+        - {x: -50.5, y: -6}
+      - - {x: -5.5, y: 48}
+        - {x: -2.5, y: 48}
+        - {x: 1.5, y: 50}
+        - {x: 1.5, y: 52}
+        - {x: -8.5, y: 52}
+        - {x: -8.5, y: 51}
+      - - {x: 5.5, y: 52}
+        - {x: 5.5, y: 49}
+        - {x: 9.5, y: 48}
+        - {x: 12.5, y: 48}
+        - {x: 13.5, y: 50}
+        - {x: 13.5, y: 52}
+      - - {x: -22.5, y: 52}
+        - {x: -21.5, y: 49}
+        - {x: -16.5, y: 49}
+        - {x: -14.5, y: 51}
+        - {x: -14.5, y: 52}
+    - name: OiseauFrames_1
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 0
+        width: 105
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 52.5, y: -16}
+        - {x: 52.5, y: 32}
+        - {x: 24.5, y: 45}
+        - {x: -24.5, y: 45}
+        - {x: -46.5, y: 27}
+        - {x: -46.5, y: 6}
+        - {x: -37.5, y: -28}
+        - {x: -21.5, y: -52}
+        - {x: 34.5, y: -52}
+      - - {x: 42.5, y: -28}
+        - {x: 45.5, y: -27}
+        - {x: 45.5, y: -24}
+        - {x: 42.5, y: -23}
+        - {x: 40.5, y: -25}
+      - - {x: -52.5, y: -6}
+        - {x: -52.5, y: -12}
+        - {x: -50.5, y: -12}
+        - {x: -48.5, y: -10}
+        - {x: -48.5, y: -8}
+        - {x: -50.5, y: -6}
+      - - {x: -5.5, y: 48}
+        - {x: -2.5, y: 48}
+        - {x: 1.5, y: 50}
+        - {x: 1.5, y: 52}
+        - {x: -8.5, y: 52}
+        - {x: -8.5, y: 51}
+      - - {x: 5.5, y: 52}
+        - {x: 5.5, y: 49}
+        - {x: 9.5, y: 48}
+        - {x: 12.5, y: 48}
+        - {x: 13.5, y: 50}
+        - {x: 13.5, y: 52}
+      - - {x: -22.5, y: 52}
+        - {x: -21.5, y: 49}
+        - {x: -16.5, y: 49}
+        - {x: -14.5, y: 51}
+        - {x: -14.5, y: 52}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
