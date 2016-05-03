@@ -34,7 +34,7 @@ public class Bird : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         StartCoroutine(Evade());
 
-        transform.eulerAngles = new Vector3(180, 0);
+        //transform.eulerAngles = new Vector3(180, 0);
     }
 
     IEnumerator Evade()
@@ -66,7 +66,7 @@ public class Bird : MonoBehaviour
 
     void FixedUpdate()
     {
-        _rb.velocity = new Vector2(targetManeuver, speed);
+        _rb.velocity = new Vector2(targetManeuver, speed * -1);
         _rb.position = new Vector3
         (
            Mathf.Clamp(_rb.position.x, boundary.x, boundary.y),

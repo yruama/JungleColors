@@ -7,13 +7,6 @@ public class Elephant : MonoBehaviour
     public float speed;
     public float health;
     public int color;
-    public int score;
-
-    [Header("Shot")]
-    public GameObject shot;
-    public Transform shotPosition;
-    public float fireRate;
-    private float _fireRate;
 
     [Header("Autres")]
     public AudioClip sound;
@@ -33,20 +26,6 @@ public class Elephant : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
-    {
-        _rb.velocity = new Vector2(0, -1 * speed);
-    }
-
-    void FixedUpdate()
-    {
-        if (Time.time - _fireRate > fireRate)
-        {
-            Instantiate(shot, shotPosition.position, Quaternion.identity);
-            _fireRate = Time.time;
-        }
-    }
-
     public void SetHealth(int damage)
     {
         _currentHealth -= damage;
@@ -57,6 +36,11 @@ public class Elephant : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        _rb.velocity = new Vector2(0, -1 * speed);
+    }
+
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Player")
@@ -65,7 +49,7 @@ public class Elephant : MonoBehaviour
         }
         if (coll.gameObject.tag == "Shot")
         {
-            GameObject.Find("Score").GetComponent<Score>().SetScore(score);
+            GameObject.Find("Score").GetComponent<Score>().SetScore(100);
             SetHealth(1);
             Destroy(coll.gameObject);
         }

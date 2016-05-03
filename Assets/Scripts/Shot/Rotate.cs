@@ -16,8 +16,6 @@ public class Rotate : MonoBehaviour
         {
             x = -1;
         }
-
-        Debug.Log(x);
         _rb = GetComponent<Rigidbody2D>();
         _rb.angularVelocity = Random.Range(2, 6) * speed * x;
     }

@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
-        Debug.Log("Vitesse : " + speed + " Inivincible : " + _invincible + " isSLow : " + _isSlow);
         if (_invincible == false)
         {
             if (Time.time - _timeToAttack > fireRate)

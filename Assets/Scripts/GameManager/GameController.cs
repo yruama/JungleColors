@@ -20,20 +20,12 @@ public class GameController : MonoBehaviour
     public GameObject[] enemy;
     private int _minEnemy;
     private int _maxEnemy;
-    private List<GameObject> _listEnemy;
+    private List<int> _listEnemy = new List<int>();
     public int enemyCount;
 
     [Header("Color")]
     public GameObject[] colorPower;
-
-    [Header("Bird")]
-    public GameObject[] bird;
-
-    [Header("Bear")]
-    public GameObject[] bear;
-
-    [Header("Elephant")]
-    public GameObject[] elephant;
+    private int[] _bestColor = new int[3];
 
     private bool gameOver;
     private bool restart;
@@ -51,6 +43,10 @@ public class GameController : MonoBehaviour
         _maxEnemy = 1;
 
         score = 0;
+
+        _listEnemy.Add(0);
+        _listEnemy.Add(4);
+        _listEnemy.Add(8);
 
         StartCoroutine(SpawnWaves());
     }
@@ -71,15 +67,15 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(3);
         while (true)
         {
-            for (int i = 0; i < enemyCount; i++)
+            for (int i = 0; i < _listEnemy.Count; i++)
             {
-                GameObject hazard = enemy[Random.Range(_minEnemy, _maxEnemy)];
                 Vector3 spawnValue = new Vector3(Random.Range(-spawnPosition.x, spawnPosition.x), spawnPosition.y, spawnPosition.z);
                 Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnValue, spawnRotation);
+                Instantiate(enemy[_listEnemy[i]], spawnValue, spawnRotation);
                 yield return new WaitForSeconds(timeToNextEnemy);
             }
             _waveNb += 1;
+            EnemyList();
             yield return new WaitForSeconds(timeToNextWave);
 
             if (gameOver)
@@ -104,38 +100,48 @@ public class GameController : MonoBehaviour
     public void EnemyList()
     {
         int i = 0;
-        int e = 0;
-        int c = 0;
 
-        if (_waveNb < 3)
-        {
-            e = Random.Range(0, 2);
-        }
-        else
-        {
-            e = Random.Range(0, 3);
-        }
-        
-        if (_waveNb > 4)
-        {
-            c = 3;
-        }
+        _listEnemy.Clear();
 
-        while (i < enemyCount)
+        while (i < _waveNb + 3)
         {
-            switch (e)
-            {
-                case 0:
-                    _listEnemy.Add(bear[Random.Range(c, c + 3)]);
-                    break;
-                case 1:
-                    _listEnemy.Add(bird[Random.Range(c, c + 3)]);
-                    break;
-                case 2:
-                    _listEnemy.Add(elephant[Random.Range(c, c + 3)]);
-                    break;
-            }   
+            _listEnemy.Add(Random.Range(0, 9));
             i = i + 1;
         }
+    }
+
+    public int[] getBestColor()
+    {
+        int[] i = new int[3];
+        int r = 0;
+        int b = 0;
+        int y = 0;
+
+        int x = 0;
+
+        while (x < _listEnemy.Count)
+        {
+            if (_listEnemy[x] == 0 || _listEnemy[x] == 3 || _listEnemy[x] == 6)
+            {
+                b = b + 1;
+            }
+            if (_listEnemy[x] == 1 || _listEnemy[x] == 4 || _listEnemy[x] == 7)
+            {
+                r = r + 1;
+            }
+            if (_listEnemy[x] == 2 || _listEnemy[x] == 5 || _listEnemy[x] == 8)
+            {
+                y = y + 1;
+            }
+            x = x + 1;
+        }
+
+        i[0] = b;
+        i[1] = r;
+        i[2] = y;
+
+        System.Array.Sort(i);
+
+        return i;
     }
 }
