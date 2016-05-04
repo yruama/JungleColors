@@ -92,8 +92,12 @@ public class Bird : MonoBehaviour
         }
         if (coll.gameObject.tag == "Shot")
         {
-            GameObject.Find("Score").GetComponent<Score>().SetScore(score);
-            SetHealth(1);
+            if (coll.gameObject.GetComponent<ShotController>().GetColor() == color)
+            {
+                GameObject.Find("GameController").GetComponent<GameController>().SetScore(score);
+                GameObject.Find("Score").GetComponent<Score>().SetScore(score);
+                SetHealth(1);
+            }
             Destroy(coll.gameObject);
         }
     }

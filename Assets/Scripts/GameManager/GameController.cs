@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -27,9 +28,18 @@ public class GameController : MonoBehaviour
     public GameObject[] colorPower;
     private int[] _bestColor = new int[3];
 
+    [Header("Textes")]
+    public Text goldScore;
+    public Text diamondScore;
+    public Text finalScore;
+
+    [Header("Autres")]
+    public GameObject gameOverImage;
+    public float goldReduce;
+
     private bool gameOver;
     private bool restart;
-    private int score;
+    private int _score;
     private bool _wave;
     private int _waveNb;
 
@@ -42,7 +52,7 @@ public class GameController : MonoBehaviour
         _minEnemy = 0;
         _maxEnemy = 1;
 
-        score = 0;
+        _score = 0;
 
         _listEnemy.Add(0);
         _listEnemy.Add(4);
@@ -53,6 +63,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(_score);
         if (restart)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -65,7 +76,7 @@ public class GameController : MonoBehaviour
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(3);
-        while (true)
+        while (gameOver == false)
         {
             for (int i = 0; i < _listEnemy.Count; i++)
             {
@@ -77,24 +88,7 @@ public class GameController : MonoBehaviour
             _waveNb += 1;
             EnemyList();
             yield return new WaitForSeconds(timeToNextWave);
-
-            if (gameOver)
-            {
-                break;
-            }
         }
-    }
-
-    public void AddScore(int newScoreValue)
-    {
-        score += newScoreValue;
-    }
-
-
-    public void GameOver()
-    {
-
-        gameOver = true;
     }
 
     public void EnemyList()
@@ -143,5 +137,44 @@ public class GameController : MonoBehaviour
         System.Array.Sort(i);
 
         return i;
+    }
+
+    public void SetScore(int i)
+    {
+        Debug.Log(i);
+        _score += i;
+    }
+
+
+    public void GameOver()
+    {
+        Debug.Log(_score);
+        finalScore.text = _score.ToString();
+        goldScore.text = (_score / goldReduce).ToString();
+        diamondScore.text = "73";
+
+        /* *** Sauvegarde des monnaies *** */
+        PlayerPrefs.SetInt("gold", PlayerPrefs.GetInt("gold") + (int)(_score / goldReduce));
+        PlayerPrefs.SetInt("doamond", PlayerPrefs.GetInt("diamond") + 1);
+        SetBestScore();
+
+        gameOverImage.SetActive(true);
+        gameOver = true;
+    }
+
+    void SetBestScore()
+    {
+        int[] i = new int[4];
+
+        i[0] = PlayerPrefs.GetInt("scoreOne");
+        i[1] = PlayerPrefs.GetInt("scoreTwo");
+        i[2] = PlayerPrefs.GetInt("scoreThree");
+        i[3] = _score;
+
+        System.Array.Sort(i);
+
+        PlayerPrefs.SetInt("playerOne", i[0]);
+        PlayerPrefs.SetInt("playerTwo", i[1]);
+        PlayerPrefs.SetInt("playerYhree", i[2]);
     }
 }

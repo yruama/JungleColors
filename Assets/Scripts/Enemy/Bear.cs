@@ -64,10 +64,15 @@ public class Bear : MonoBehaviour
             coll.gameObject.GetComponent<PlayerController>().SlowMovement(slowForce, slowForce);
         }
         if (coll.gameObject.tag == "Shot")
-        {
-            GameObject.Find("Score").GetComponent<Score>().SetScore(score);
-            SetHealth(1);
-            Destroy(coll.gameObject);
-        }
+            if (coll.gameObject.tag == "Shot")
+            {
+                if (coll.gameObject.GetComponent<ShotController>().GetColor() == color)
+                {
+                    GameObject.Find("GameController").GetComponent<GameController>().SetScore(score);
+                    GameObject.Find("Score").GetComponent<Score>().SetScore(score);
+                    SetHealth(1);
+                }
+                Destroy(coll.gameObject);
+            }
     }
 }

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float energie;
     public float fireRate;
+    public int color;
 
     [Header("Autres")]
     public GameObject shot;
@@ -55,7 +56,8 @@ public class PlayerController : MonoBehaviour
                 int i = 0;
                 while (i < firePosition.Length)
                 {
-                    Instantiate(shot, firePosition[i].position, Quaternion.identity);
+                    GameObject go = Instantiate(shot, firePosition[i].position, Quaternion.identity) as GameObject;
+                    go.GetComponent<ShotController>().SetColor(color);
                     i = i + 1;
                 }
                 _timeToAttack = Time.time;
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
             if (Time.time - _timeToInvincible > timeToBeInvincible)
             {
                 _invincible = false;
+                GetComponent<PolygonCollider2D>().enabled = true;
                 GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r, GetComponent<SpriteRenderer>().color.g, GetComponent<SpriteRenderer>().color.b, 1f);
             }
             if (_isSlow == true)
@@ -92,8 +95,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-         float h = CrossPlatformInputManager.GetAxis("Horizontal");
-        //float h = Input.GetAxis("Horizontal");
+         //float h = CrossPlatformInputManager.GetAxis("Horizontal");
+        float h = Input.GetAxis("Horizontal");
         _rb.velocity = new Vector2(h * speed * Time.deltaTime * 100, transform.position.y);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -boundary, boundary), transform.position.y, -1.0f);
     }
@@ -104,10 +107,12 @@ public class PlayerController : MonoBehaviour
         _currentHealth -= 1;
         _invincible = true;
         healthText.text = _currentHealth.ToString();
-       // Instantiate(explosion, transform.position, Quaternion.identity);
+        Instantiate(explosion, transform.position, Quaternion.identity);
+        GetComponent<PolygonCollider2D>().enabled = false;
         GetComponent<SpriteRenderer>().color = new Color(GetComponent<SpriteRenderer>().color.r, GetComponent<SpriteRenderer>().color.g, GetComponent<SpriteRenderer>().color.b, 0.2f);
         if (_currentHealth <= 0)
         {
+            GameObject.Find("GameController").GetComponent<GameController>().GameOver();
             Destroy(gameObject);
         }
     }
@@ -128,5 +133,13 @@ public class PlayerController : MonoBehaviour
         _slowFireRateValue = value;
         _timeToBeSlowFireRate = duration;
         fireRate += _slowFireRateValue;
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "MagicBall")
+        {
+            /* DO TA MERE */
+        }
     }
 }

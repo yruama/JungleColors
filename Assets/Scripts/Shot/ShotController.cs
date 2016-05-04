@@ -26,4 +26,14 @@ public class ShotController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void SetColor(int i)
+    {
+        _color = i;
+    }
+
+    public int GetColor()
+    {
+        return _color;
+    }
 }

@@ -7,6 +7,7 @@ public class Elephant : MonoBehaviour
     public float speed;
     public float health;
     public int color;
+    public int score;
 
     [Header("Autres")]
     public AudioClip sound;
@@ -49,8 +50,12 @@ public class Elephant : MonoBehaviour
         }
         if (coll.gameObject.tag == "Shot")
         {
-            GameObject.Find("Score").GetComponent<Score>().SetScore(100);
-            SetHealth(1);
+            if (coll.gameObject.GetComponent<ShotController>().GetColor() == color)
+            {
+                GameObject.Find("GameController").GetComponent<GameController>().SetScore(score);
+                GameObject.Find("Score").GetComponent<Score>().SetScore(score);
+                SetHealth(1);
+            }
             Destroy(coll.gameObject);
         }
     }
