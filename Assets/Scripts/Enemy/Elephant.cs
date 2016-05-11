@@ -29,6 +29,8 @@ public class Elephant : MonoBehaviour
 
     public void SetHealth(int damage)
     {
+        GetComponent<AudioSource>().clip = sound;
+        GetComponent<AudioSource>().Play();
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
@@ -53,7 +55,6 @@ public class Elephant : MonoBehaviour
             if (coll.gameObject.GetComponent<ShotController>().GetColor() == color)
             {
                 GameObject.Find("GameController").GetComponent<GameController>().SetScore(score);
-                GameObject.Find("Score").GetComponent<Score>().SetScore(score);
                 SetHealth(1);
             }
             Destroy(coll.gameObject);

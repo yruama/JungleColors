@@ -4,20 +4,29 @@ using System.Collections;
 
 public class Score : MonoBehaviour
 {
-    float score;
+    public GameController gc;
+
+    [Header("Temps & points")]
+    public float timeToWait;
+    public float scoreByTime;
+
+    private float _time;
+
+    int score;
 	
-	void Start ()
+	void Awake ()
     {
-	
+        score = 0;
+        _time = Time.time;
 	}
 
 	void Update ()
     {
-	
-	}
-
-    public void SetScore(int i)
-    {
-        GetComponent<Text>().text = (score += i).ToString();
+        if (Time.time - _time > timeToWait)
+        {
+            gc.SetScore((int)scoreByTime);
+            _time = Time.time;
+        }
+        GetComponent<Text>().text = gc.GetScore().ToString();
     }
 }

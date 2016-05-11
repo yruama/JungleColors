@@ -23,11 +23,11 @@ public class Bird : MonoBehaviour
     public GameObject shot;
     public float fireRate;
     private float _timeToAttack;
-    public AudioClip soundShot;
 
     [Header("Autes")]
     public GameObject explosion;
     private Rigidbody2D _rb;
+    public AudioClip[] sound;
 
     void Start()
     {
@@ -57,6 +57,8 @@ public class Bird : MonoBehaviour
             int i = 0;
             while (i < firePosition.Length)
             {
+                GetComponent<AudioSource>().clip = sound[0];
+                GetComponent<AudioSource>().Play();
                 Instantiate(shot, firePosition[i].position, Quaternion.identity);
                 i = i + 1;
             }
@@ -76,6 +78,7 @@ public class Bird : MonoBehaviour
 
     public void SetHealth(int damage)
     {
+
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
@@ -94,8 +97,9 @@ public class Bird : MonoBehaviour
         {
             if (coll.gameObject.GetComponent<ShotController>().GetColor() == color)
             {
+                GetComponent<AudioSource>().clip = sound[1];
+                GetComponent<AudioSource>().Play();
                 GameObject.Find("GameController").GetComponent<GameController>().SetScore(score);
-                GameObject.Find("Score").GetComponent<Score>().SetScore(score);
                 SetHealth(1);
             }
             Destroy(coll.gameObject);

@@ -16,7 +16,7 @@ public class Bear : MonoBehaviour
     private float _fireRate;
 
     [Header("Autres")]
-    public AudioClip sound;
+    public AudioClip[] sound;
     public GameObject explosion;
 
     [Header("Slow")]
@@ -42,6 +42,8 @@ public class Bear : MonoBehaviour
     {
         if (Time.time - _fireRate > fireRate)
         {
+            GetComponent<AudioSource>().clip = sound[0];
+            GetComponent<AudioSource>().Play();
             Instantiate(shot, shotPosition.position, Quaternion.identity);
             _fireRate = Time.time;
         }
@@ -49,9 +51,11 @@ public class Bear : MonoBehaviour
 
     public void SetHealth(int damage)
     {
+
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
+
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
@@ -68,8 +72,9 @@ public class Bear : MonoBehaviour
             {
                 if (coll.gameObject.GetComponent<ShotController>().GetColor() == color)
                 {
+                    GetComponent<AudioSource>().clip = sound[1];
+                    GetComponent<AudioSource>().Play();
                     GameObject.Find("GameController").GetComponent<GameController>().SetScore(score);
-                    GameObject.Find("Score").GetComponent<Score>().SetScore(score);
                     SetHealth(1);
                 }
                 Destroy(coll.gameObject);

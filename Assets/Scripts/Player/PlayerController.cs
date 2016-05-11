@@ -13,9 +13,12 @@ public class PlayerController : MonoBehaviour
     public float energie;
     public float fireRate;
     public int color;
-
+    public Image banana;
+    public AudioClip[] sound;
+    
     [Header("Autres")]
-    public GameObject shot;
+    public GameController gc;
+    public GameObject[] shot;
     public Transform[] firePosition;
     public float boundary;
     public Text healthText;
@@ -49,14 +52,18 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
+        banana.sprite = shot[color].GetComponent<SpriteRenderer>().sprite;
+        Debug.Log("COLOR : " + color);
         if (_invincible == false)
         {
-            if (Time.time - _timeToAttack > fireRate)
+            if (Time.time - _timeToAttack > fireRate && gc.getMiniGame() == false)
             {
                 int i = 0;
                 while (i < firePosition.Length)
                 {
-                    GameObject go = Instantiate(shot, firePosition[i].position, Quaternion.identity) as GameObject;
+                    GetComponent<AudioSource>().clip = sound[1];
+                    GetComponent<AudioSource>().Play();
+                    GameObject go = Instantiate(shot[color], firePosition[i].position, Quaternion.identity) as GameObject;
                     go.GetComponent<ShotController>().SetColor(color);
                     i = i + 1;
                 }
@@ -103,6 +110,8 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
+        GetComponent<AudioSource>().clip = sound[0];
+        GetComponent<AudioSource>().Play();
         _timeToInvincible = Time.time;
         _currentHealth -= 1;
         _invincible = true;
@@ -137,9 +146,9 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.tag == "MagicBall")
+        if (coll.gameObject.tag == "ShotEnemy")
         {
-            /* DO TA MERE */
+            TakeDamage();
         }
     }
 }
