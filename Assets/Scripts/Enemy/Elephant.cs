@@ -10,7 +10,7 @@ public class Elephant : MonoBehaviour
     public int score;
 
     [Header("Autres")]
-    public AudioClip sound;
+    public AudioClip[] sound;
     public GameObject explosion;
 
     [Header("Slow")]
@@ -23,13 +23,15 @@ public class Elephant : MonoBehaviour
 
     void Start()
     {
+        GetComponent<AudioSource>().clip = sound[1];
+        GetComponent<AudioSource>().Play();
         _currentHealth = health;
         _rb = GetComponent<Rigidbody2D>();
     }
 
     public void SetHealth(int damage)
     {
-        GetComponent<AudioSource>().clip = sound;
+        GetComponent<AudioSource>().clip = sound[0];
         GetComponent<AudioSource>().Play();
         _currentHealth -= damage;
         if (_currentHealth <= 0)
